@@ -86,10 +86,10 @@ export class KeyboardRenderer {
         base.receiveShadow = true;
         this.scene.add(base);
 
-        // render each row
+        // render each row (row 0 = function keys at back, row 5 = space bar at front)
         this.layout.rows.forEach((row, rowIndex) => {
             let xOffset = 0;
-            const rowY = -rowIndex * (keySize + keySpacing);
+            const rowZ = rowIndex * (keySize + keySpacing) - 3;
 
             row.forEach((keyDef) => {
                 if (keyDef.code === null) {
@@ -103,7 +103,7 @@ export class KeyboardRenderer {
 
                 // position key
                 const keyX = xOffset + keyWidth / 2 - 9;
-                key.position.set(keyX, 0, rowY + 2);
+                key.position.set(keyX, 0, rowZ);
                 key.userData = {
                     code: keyDef.code,
                     defaultY: 0,
@@ -133,21 +133,27 @@ export class KeyboardRenderer {
         keyCap.receiveShadow = true;
         keyGroup.add(keyCap);
 
-        // add text label if Three.js includes TextGeometry or use canvas texture
+        // add text label with high-res canvas texture
         if (label) {
             const canvas = document.createElement('canvas');
-            canvas.width = 128;
-            canvas.height = 128;
+            canvas.width = 512;
+            canvas.height = 512;
             const ctx = canvas.getContext('2d');
 
-            // draw label
+            // clear canvas
+            ctx.clearRect(0, 0, 512, 512);
+
+            // draw label with high quality
             ctx.fillStyle = '#333333';
-            ctx.font = 'bold 48px Arial';
+            ctx.font = 'bold 200px Arial, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(label, 64, 64);
+            ctx.fillText(label, 256, 256);
 
             const texture = new THREE.CanvasTexture(canvas);
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+
             const labelMaterial = new THREE.MeshBasicMaterial({
                 map: texture,
                 transparent: true
