@@ -21,9 +21,29 @@ class KeyboardApp {
     }
 
     async init() {
-        // detect layout
-        const detectedLayout = await KeyboardDetector.detectLayout();
+        // detect OS and layout
+        const detectedOS = KeyboardDetector.detectOS();
+        let detectedLayout = await KeyboardDetector.detectLayout();
+
+        console.log('Detected OS:', detectedOS);
+        console.log('Detected Layout:', detectedLayout);
+
+        // use OS-specific layout based on detected OS
+        const osSpecificLayout = `${detectedLayout}_${detectedOS}`;
+
+        console.log('Looking for OS-specific layout:', osSpecificLayout);
+        console.log('Exists?', !!KEYBOARD_LAYOUTS[osSpecificLayout]);
+
+        // use OS-specific if it exists, otherwise fallback to base
+        if (KEYBOARD_LAYOUTS[osSpecificLayout]) {
+            detectedLayout = osSpecificLayout;
+            console.log('Using OS-specific layout:', detectedLayout);
+        } else {
+            console.log('Using base layout:', detectedLayout);
+        }
+
         this.currentLayout = detectedLayout;
+        this.detectedOS = detectedOS;
 
         // update UI
         this.updateLayoutDisplay(detectedLayout);
@@ -79,8 +99,8 @@ class KeyboardApp {
             return;
         }
 
-        // create renderer
-        this.renderer = new KeyboardRenderer(container, layout);
+        // create renderer with OS info for dynamic labeling
+        this.renderer = new KeyboardRenderer(container, layout, this.detectedOS || 'windows');
     }
 
     reloadKeyboard() {
