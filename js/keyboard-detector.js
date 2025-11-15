@@ -1,6 +1,40 @@
-// auto-detect keyboard layout based on browser/OS hints
+// auto-detect keyboard layout and OS based on browser/OS hints
 
 export class KeyboardDetector {
+    /**
+     * Detect operating system
+     * @returns {string} 'mac', 'windows', or 'linux'
+     */
+    static detectOS() {
+        const platform = navigator.platform.toLowerCase();
+        const userAgent = navigator.userAgent.toLowerCase();
+
+        // check for mac first (most specific)
+        if (platform.includes('mac') ||
+            userAgent.includes('mac') ||
+            userAgent.includes('macintosh') ||
+            platform.includes('darwin')) {
+            return 'mac';
+        }
+
+        // check for linux
+        if (platform.includes('linux') || userAgent.includes('linux')) {
+            return 'linux';
+        }
+
+        // check for windows
+        if (platform.includes('win') || userAgent.includes('win')) {
+            return 'windows';
+        }
+
+        // ios devices
+        if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+            return 'mac';
+        }
+
+        return 'windows'; // default fallback
+    }
+
     /**
      * Attempts to detect the user's keyboard layout
      * @returns {Promise<string>} Layout name: 'ansi', 'iso', 'german', or 'uk'
