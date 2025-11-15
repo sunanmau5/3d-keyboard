@@ -17,7 +17,7 @@ export class KeyboardRenderer {
         // camera setup
         const aspect = this.container.clientWidth / this.container.clientHeight;
         this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
-        this.camera.position.set(0, 12, 18);
+        this.camera.position.set(0, 14, 12);
         this.camera.lookAt(0, 0, 0);
 
         // renderer setup
@@ -74,8 +74,13 @@ export class KeyboardRenderer {
         const keySize = 1.0;
         const keyHeight = 0.5;
 
-        // create base plate
-        const baseGeometry = new THREE.BoxGeometry(18, 0.3, 10);
+        // calculate keyboard dimensions (5 rows without function keys)
+        const numRows = this.layout.rows.length;
+        const baseWidth = 18.2; // tighter fit with minimal margins
+        const baseDepth = numRows * (keySize + keySpacing) + 0.5; // tighter depth
+
+        // create fitted base plate
+        const baseGeometry = new THREE.BoxGeometry(baseWidth, 0.3, baseDepth);
         const baseMaterial = new THREE.MeshStandardMaterial({
             color: 0x2a2a2a,
             metalness: 0.3,
@@ -89,7 +94,7 @@ export class KeyboardRenderer {
         // render each row (row 0 = function keys at back, row 5 = space bar at front)
         this.layout.rows.forEach((row, rowIndex) => {
             let xOffset = 0;
-            const rowZ = rowIndex * (keySize + keySpacing) - 3;
+            const rowZ = rowIndex * (keySize + keySpacing) - 2.5;
 
             row.forEach((keyDef) => {
                 if (keyDef.code === null) {
