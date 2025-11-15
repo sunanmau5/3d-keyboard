@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#info {
+    text-align: center;
+    padding: 20px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+#info h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+#info p {
+    font-size: 1em;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+#layout-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+#layout-selector {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+#layout-selector option {
+    background: #1e3c72;
+    color: #ffffff;
+}
+
+#detected-layout {
+    font-weight: bold;
+    color: #4ade80;
+}
+
+#canvas-container {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+}
+
+#canvas-container canvas {
+    display: block;
+    outline: none;
+}
+
+/* loading state */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+

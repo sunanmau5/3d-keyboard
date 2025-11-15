@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Keyboard Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="info">
+            <h1>3D Keyboard Visualization</h1>
+            <p>Start typing to see your keyboard come alive!</p>
+            <div id="layout-info">
+                <label for="layout-selector">Layout: </label>
+                <select id="layout-selector">
+                    <option value="auto">Auto-detect</option>
+                    <option value="ansi">ANSI (US)</option>
+                    <option value="iso">ISO (European)</option>
+                    <option value="german">German (QWERTZ)</option>
+                    <option value="uk">UK</option>
+                </select>
+                <span id="detected-layout"></span>
+            </div>
+        </div>
+        <div id="canvas-container"></div>
+    </div>
+
+    <!-- Application modules -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
+

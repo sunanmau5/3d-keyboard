@@ -1,0 +1,24 @@
+{
+  "name": "3d-keyboard",
+  "version": "1.0.0",
+  "description": "A 3D keyboard visualization built with pure JavaScript and Three.js",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . --listen 8000"
+  },
+  "keywords": [
+    "keyboard",
+    "3d",
+    "threejs",
+    "visualization",
+    "animation",
+    "webgl"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/3d-keyboard.git"
+  }
+}
