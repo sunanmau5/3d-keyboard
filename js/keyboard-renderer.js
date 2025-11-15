@@ -17,7 +17,7 @@ export class KeyboardRenderer {
         // camera setup
         const aspect = this.container.clientWidth / this.container.clientHeight;
         this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
-        this.camera.position.set(0, 15, 25);
+        this.camera.position.set(0, 12, 18);
         this.camera.lookAt(0, 0, 0);
 
         // renderer setup
@@ -143,9 +143,9 @@ export class KeyboardRenderer {
             // clear canvas
             ctx.clearRect(0, 0, 512, 512);
 
-            // draw label with high quality
-            ctx.fillStyle = '#333333';
-            ctx.font = 'bold 200px Arial, sans-serif';
+            // draw label with high quality and better contrast
+            ctx.fillStyle = '#000000'; // pure black for maximum contrast
+            ctx.font = 'bold 240px -apple-system, BlinkMacSystemFont, Arial, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(label, 256, 256);
@@ -153,12 +153,17 @@ export class KeyboardRenderer {
             const texture = new THREE.CanvasTexture(canvas);
             texture.minFilter = THREE.LinearFilter;
             texture.magFilter = THREE.LinearFilter;
+            texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
 
             const labelMaterial = new THREE.MeshBasicMaterial({
                 map: texture,
-                transparent: true
+                transparent: true,
+                opacity: 0.9
             });
-            const labelGeometry = new THREE.PlaneGeometry(width * 0.6, depth * 0.6);
+
+            // fixed label size to prevent stretching
+            const labelSize = Math.min(width, depth) * 0.5;
+            const labelGeometry = new THREE.PlaneGeometry(labelSize, labelSize);
             const labelMesh = new THREE.Mesh(labelGeometry, labelMaterial);
             labelMesh.rotation.x = -Math.PI / 2;
             labelMesh.position.y = height / 2 + 0.01;
