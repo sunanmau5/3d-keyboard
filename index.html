@@ -15,10 +15,30 @@
                 <label for="layout-selector">Layout: </label>
                 <select id="layout-selector">
                     <option value="auto">Auto-detect</option>
-                    <option value="ansi">ANSI (US)</option>
-                    <option value="iso">ISO (European)</option>
-                    <option value="german">German (QWERTZ)</option>
-                    <option value="uk">UK</option>
+                    <optgroup label="ANSI (US)">
+                        <option value="ansi">ANSI - Auto</option>
+                        <option value="ansi_mac">ANSI - Mac</option>
+                        <option value="ansi_windows">ANSI - Windows</option>
+                        <option value="ansi_linux">ANSI - Linux</option>
+                    </optgroup>
+                    <optgroup label="ISO (European)">
+                        <option value="iso">ISO - Auto</option>
+                        <option value="iso_mac">ISO - Mac</option>
+                        <option value="iso_windows">ISO - Windows</option>
+                        <option value="iso_linux">ISO - Linux</option>
+                    </optgroup>
+                    <optgroup label="German (QWERTZ)">
+                        <option value="german">German - Auto</option>
+                        <option value="german_mac">German - Mac</option>
+                        <option value="german_windows">German - Windows</option>
+                        <option value="german_linux">German - Linux</option>
+                    </optgroup>
+                    <optgroup label="UK">
+                        <option value="uk">UK - Auto</option>
+                        <option value="uk_mac">UK - Mac</option>
+                        <option value="uk_windows">UK - Windows</option>
+                        <option value="uk_linux">UK - Linux</option>
+                    </optgroup>
                 </select>
                 <span id="detected-layout"></span>
             </div>
